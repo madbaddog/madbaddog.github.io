@@ -338,7 +338,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
             //            camerasCount = camerasArray.length;
             //            getStream(video, camerasArray[currentCamera]);
             //        })
-            getStream(video, 0);
+            getStream(video, 0)
                     .then(function () {
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
