@@ -145,7 +145,11 @@ function getStream(video, cameraId) {
     return new Promise(function (resolve, reject) {
     
         navigator.mediaDevices.getUserMedia({
-            video: {frameRate: 24, deviceId: cameraId}
+            //video: {frameRate: 24, deviceId: cameraId}
+             audio: false,
+             video: {
+                 facingMode: 'user'
+             }            
         })
                 .then(function (stream) {
                     if ("srcObject" in video) {
