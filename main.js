@@ -7,6 +7,6 @@ document.addEventListener("DOMContentLoaded", function(){
     });   
     function switchCam(){
         decoder.switchCamera();
-    }    
+    } 
 });
 
