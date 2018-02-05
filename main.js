@@ -4,8 +4,11 @@ document.addEventListener("DOMContentLoaded", function(){
 //     .then(function(data){
 //         console.log(data);
 //     });   
+
+});
+
     function switchCam(){
-        decoder.switchCamera();
+        //decoder.switchCamera();
             video = document.getElementById('video');
             video.style.width = document.width + 'px';
             video.style.height = document.height + 'px';
@@ -24,5 +27,3 @@ document.addEventListener("DOMContentLoaded", function(){
                 video.srcObject = stream;
             });
     } 
-});
-
