@@ -88,7 +88,7 @@ function getFilters() {
 function parseqr(qr) {
     var params = qr.split("&");
     var docInfo = new Object();
-    angular.forEach(params, function (param, i) {
+    params.forEach(function (param) {
 
         var key = param.split("=");
         switch (key[0]) {
