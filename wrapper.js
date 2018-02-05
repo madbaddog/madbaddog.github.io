@@ -143,6 +143,9 @@ function getCameras() {
 
 function getStream(video, cameraId) {
 
+    video.setAttribute('autoplay', '');
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
     return new Promise(function (resolve, reject) {
     
         navigator.mediaDevices.getUserMedia({
@@ -150,10 +153,8 @@ function getStream(video, cameraId) {
         })
                 .then(function (stream) {
                     if ("srcObject" in video) {
-                        video1.srcObject = stream;
                         video.srcObject = stream;
                     } else {
-                        video1.src = window.URL.createObjectURL(stream);
                         video.src = window.URL.createObjectURL(stream);
                     }
                     resolve();
