@@ -144,11 +144,22 @@ function getCameras() {
 function getStream(video, cameraId) {
 
     return new Promise(function (resolve, reject) {
-        navigator.mediaDevices.getUserMedia({
-            video: {frameRate: 24, deviceId: cameraId}
-        })
+        var constraints = {
+             audio: false,
+             video: {
+                 facingMode: 'user'
+             }
+        }
+
+        navigator.mediaDevices.getUserMedia(constraints)      
+//         navigator.mediaDevices.getUserMedia({
+//             video: {frameRate: 24, deviceId: cameraId}
+//         })
                 .then(function (stream) {
                     var video1 = document.getElementById("video");
+                video1.setAttribute('autoplay', '');
+                video1.setAttribute('muted', '');
+                video1.setAttribute('playsinline', '');
                     if ("srcObject" in video) {
                         video1.srcObject = stream;
                         video.srcObject = stream;
