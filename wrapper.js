@@ -309,7 +309,8 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     var outcontext = outcanvas.getContext('2d');
     outcontext.canvas.width = boxsize;
     outcontext.canvas.height = boxsize;
-    var video = document.createElement("video");
+    //var video = document.createElement("video");
+    var video = document.getElementById("video");
     video.setAttribute('autoplay', '');
     video.setAttribute('muted', '');
     video.setAttribute('playsinline', '');    
