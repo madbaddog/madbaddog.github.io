@@ -311,9 +311,6 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     outcontext.canvas.height = boxsize;
     //var video = document.createElement("video");
     var video = document.getElementById("video");
-    video.setAttribute('autoplay', '');
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');    
     var interval;
     var Filters = getFilters();
     var currentCamera = 0;
@@ -340,26 +337,26 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
             //            getStream(video, camerasArray[currentCamera]);
             //        })
             getStream(video, 0)
-                    .then(function () {
-                            var handler = new videoHandler(video);
-                            var decoder = new decoderqr(Filters);
-                            var canvas = null;
-                            var onDetect = function(result){
-                                clearInterval(interval);
-                                stop();
-                                resolve(result);                                                
-                            }                                            
-                            interval = setInterval(function () {                                                 
-                                canvas = handler.blurImage(boxsize, boxsize);
-                                outcontext.drawImage(canvas, 0, 0);
-                                canvas = handler.cropImage(qrframesize, qrframesize);
-                                outcontext.drawImage(canvas, (boxsize - qrframesize) / 2, (boxsize - qrframesize) / 2);
-                                decoder.decode(canvas).then(function (result) {                       
-                                    onDetect(result);
-                                });
-                            }, 1000 / 24);
+//                     .then(function () {
+//                             var handler = new videoHandler(video);
+//                             var decoder = new decoderqr(Filters);
+//                             var canvas = null;
+//                             var onDetect = function(result){
+//                                 clearInterval(interval);
+//                                 stop();
+//                                 resolve(result);                                                
+//                             }                                            
+//                             interval = setInterval(function () {                                                 
+//                                 canvas = handler.blurImage(boxsize, boxsize);
+//                                 outcontext.drawImage(canvas, 0, 0);
+//                                 canvas = handler.cropImage(qrframesize, qrframesize);
+//                                 outcontext.drawImage(canvas, (boxsize - qrframesize) / 2, (boxsize - qrframesize) / 2);
+//                                 decoder.decode(canvas).then(function (result) {                       
+//                                     onDetect(result);
+//                                 });
+//                             }, 1000 / 24);
 
-                    });
+//                     });
         });
 
     };
