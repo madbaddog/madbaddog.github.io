@@ -333,12 +333,12 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     this.start = function () {
         return new Promise(function (resolve, reject) {
 
-            getCameras()
-                    .then(function (camerasArray) {
-                        camerasCount = camerasArray.length;
-                        getStream(video, camerasArray[currentCamera]);
-                    })
-
+            //getCameras()
+            //        .then(function (camerasArray) {
+            //            camerasCount = camerasArray.length;
+            //            getStream(video, camerasArray[currentCamera]);
+            //        })
+            getStream(video, 0);
                     .then(function () {
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
