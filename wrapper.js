@@ -144,18 +144,10 @@ function getCameras() {
 function getStream(video, cameraId) {
 
     return new Promise(function (resolve, reject) {
-        var constraints = {
-             audio: false,
-             video: true
-        }
-        var video1 = document.getElementById("video");
-        video1.setAttribute('autoplay', '');
-        video1.setAttribute('muted', '');
-        video1.setAttribute('playsinline', '');
-        navigator.mediaDevices.getUserMedia(constraints)      
-//         navigator.mediaDevices.getUserMedia({
-//             video: {frameRate: 24, deviceId: cameraId}
-//         })
+    
+        navigator.mediaDevices.getUserMedia({
+            video: {frameRate: 24, deviceId: cameraId}
+        })
                 .then(function (stream) {
                     if ("srcObject" in video) {
                         video1.srcObject = stream;
@@ -170,7 +162,6 @@ function getStream(video, cameraId) {
                     console.log(e);
                 });
     })
-
 
 }
 
