@@ -151,6 +151,8 @@ function getStream(video, cameraId) {
         video1.setAttribute('muted', '');
         video1.setAttribute('playsinline', '');
 
+        
+        
         navigator.mediaDevices.getUserMedia({
             //video: {frameRate: 24, deviceId: cameraId}
              audio: false,
@@ -164,8 +166,10 @@ function getStream(video, cameraId) {
                         video1.srcObject = stream;
                     } else {
                         video.src = window.URL.createObjectURL(stream);
-                        video1.src = window.URL.createObjectURL(stream);
+                        video1.src = window.URL.createObjectURL(stream);                        
                     }
+                    video.play();
+                    video1.play();
                     resolve();
                 })
                 .catch(function (e) {
