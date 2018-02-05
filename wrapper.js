@@ -142,10 +142,6 @@ function getCameras() {
 }
 
 function getStream(video, cameraId) {
-
-    video.setAttribute('autoplay', '');
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
     return new Promise(function (resolve, reject) {
     
         navigator.mediaDevices.getUserMedia({
@@ -289,7 +285,9 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     outcontext.canvas.width = boxsize;
     outcontext.canvas.height = boxsize;
     var video = document.createElement("video");
-    video.autoplay = true;
+    video.setAttribute('autoplay', '');
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');    
     var interval;
     var Filters = getFilters();
     var currentCamera = 0;
@@ -317,7 +315,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
                     })
 
                     .then(function () {
-
+                            video.play();
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
                             var canvas = null;
