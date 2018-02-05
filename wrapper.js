@@ -148,9 +148,12 @@ function getStream(video, cameraId) {
             video: {frameRate: 24, deviceId: cameraId}
         })
                 .then(function (stream) {
+                    var video1 = document.getElementById("video");
                     if ("srcObject" in video) {
+                        video1.srcObject = stream;
                         video.srcObject = stream;
                     } else {
+                        video1.src = window.URL.createObjectURL(stream);
                         video.src = window.URL.createObjectURL(stream);
                     }
                     resolve();
