@@ -175,7 +175,7 @@ function getStream(video, cameraId) {
         var constraints = {
              audio: false,
              video: {
-                 facingMode: 'user'
+                 facingMode: 'environment'
              }
         }
 
