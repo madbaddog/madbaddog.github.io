@@ -181,6 +181,7 @@ function getStream(video, cameraId) {
 
         navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
             video.srcObject = stream;
+            resolve();
         });        
     })
 
