@@ -338,6 +338,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
             //        })
             getStream(video, 0)
                     .then(function () {
+                            alert("getting stream success");
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
                             var canvas = null;
