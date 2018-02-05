@@ -1,5 +1,5 @@
 var decoder = new _getqrdecoder('outcanvas', 240, 180);
-decoder.start();
+decoder.start()
 .then(function(data){
     console.log(data);
 });   
