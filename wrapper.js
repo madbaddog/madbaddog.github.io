@@ -154,10 +154,8 @@ function getStream(video, cameraId) {
 //                 .then(function (stream) {
 //                     if ("srcObject" in video) {
 //                         video.srcObject = stream;
-//                         video1.srcObject = stream;
 //                     } else {
 //                         video.src = window.URL.createObjectURL(stream);
-//                         video1.src = window.URL.createObjectURL(stream);                        
 //                     }
 //                     resolve();
 //                 })
@@ -166,8 +164,7 @@ function getStream(video, cameraId) {
 //                 });
         
         
-//         video.style.width = document.width + 'px';
-//         video.style.height = document.height + 'px';
+
         video.setAttribute('autoplay', false);
         video.setAttribute('muted', true);
         video.setAttribute('playsinline', true);
@@ -175,7 +172,8 @@ function getStream(video, cameraId) {
         var constraints = {
              audio: false,
              video: {
-                 facingMode: 'environment'
+                 //facingMode: 'environment'
+                 deviceId: cameraId
              }
         }
 
@@ -331,14 +329,15 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     this.start = function () {
         return new Promise(function (resolve, reject) {
 
-            //getCameras()
-            //        .then(function (camerasArray) {
-            //            camerasCount = camerasArray.length;
-            //            getStream(video, camerasArray[currentCamera]);
-            //        })
-            alert("getting stream");
-            getStream(video, 0)
-                    .then(function () {
+            getCameras()
+                   .then(function (camerasArray) {
+                       camerasCount = camerasArray.length;
+                       getStream(video, camerasArray[currentCamera]);
+                   },
+                        function (error){
+                        alert(error);
+                   })            
+                   .then(function () {
                             alert("getting stream success");
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
