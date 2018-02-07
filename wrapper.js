@@ -172,8 +172,8 @@ function getStream(video, cameraId) {
         var constraints = {
              audio: false,
              video: {
-                 //facingMode: 'environment'
-                 deviceId: cameraId
+                 facingMode: 'environment'
+                 //deviceId: cameraId
              },
             
         }
@@ -258,6 +258,7 @@ function decoderqr(Filters) {
     function step1(ctx, qrctx) {
         return new Promise(function (resolve, reject) {
             var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+            var data = Filters.filterImage(Filters.grayscale, imageData); 
             qrctx.putImageData(imageData, 0, 0);
 
             try {
@@ -274,6 +275,7 @@ function decoderqr(Filters) {
     function step2(ctx, qrctx) {
         return new Promise(function (resolve, reject) {
             var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+            imageData = Filters.filterImage(Filters.grayscale, imageData); 
             var data = Filters.filterImage(Filters.contrast, imageData, 110);
             qrctx.putImageData(data, 0, 0);
             try {
@@ -290,6 +292,7 @@ function decoderqr(Filters) {
     function step3(ctx, qrctx) {
         return new Promise(function (resolve, reject) {
             var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+            imageData = Filters.filterImage(Filters.grayscale, imageData); 
             var data = Filters.filterImage(Filters.threshold, imageData, 100);
             qrctx.putImageData(data, 0, 0);
             try {
@@ -336,14 +339,15 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     this.start = function () {   
         if (checkConstr())
         return new Promise(function (resolve, reject) {
-            getCameras()
-                   .then(function (camerasArray) {
-                       camerasCount = camerasArray.length;
-                       getStream(video, camerasArray[currentCamera]);
-                   },
-                        function (error){
-                        alert(error);
-                   })            
+//             getCameras()
+//                    .then(function (camerasArray) {
+//                        camerasCount = camerasArray.length;
+//                        getStream(video, camerasArray[currentCamera]);
+//                    },
+//                         function (error){
+//                         alert(error);
+//                    })   
+                    getStream(video,0)
                    .then(function () {                
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
