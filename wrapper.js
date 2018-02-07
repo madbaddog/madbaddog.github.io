@@ -348,6 +348,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     }
 
     this.start = function () {
+        checkConstr();
         return new Promise(function (resolve, reject) {
             getCameras()
                    .then(function (camerasArray) {
