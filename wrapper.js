@@ -316,15 +316,24 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     var camerasCount;
 
     this.switchCamera = function () {
-        checkConstr();
+
         currentCamera++;
         this.stop();
         getCameras()
                 .then(function (camerasArray) {
-                    getStream(video, camerasArray[currentCamera]);
-                    if (currentCamera === camerasCount)
-                        currentCamera = 0;                      
-                });     
+                    var stream = video.srcObject;
+                    var tracks = stream.getTracks();
+                    tracks[0].deviceId = camerasArray[currentCamera];                    
+                });          
+
+//         currentCamera++;
+//         this.stop();
+//         getCameras()
+//                 .then(function (camerasArray) {
+//                     getStream(video, camerasArray[currentCamera]);
+//                     if (currentCamera === camerasCount)
+//                         currentCamera = 0;                      
+//                 });     
     };
 
     function checkConstr(){
