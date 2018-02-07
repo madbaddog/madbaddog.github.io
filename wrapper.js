@@ -311,7 +311,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     var video = document.getElementById("video");
     var interval;
     var Filters = getFilters();
-    var currentCamera = 1;
+    var currentCamera = 0;
     var camerasCount;
 
     this.switchCamera = function () {
@@ -319,8 +319,8 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
         this.stop();
         getCameras()
                 .then(function (camerasArray) {
-                    alert(camerasArray[currentCamera]);
-                    getStream(video, camerasArray[currentCamera]);
+                    alert(camerasArray[1]);
+                    getStream(video, camerasArray[1]);
                     if (currentCamera === camerasCount)
                         currentCamera = 0;                      
                 });     
@@ -335,9 +335,9 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
         return new Promise(function (resolve, reject) {
             getCameras()
                    .then(function (camerasArray) {
-                       alert(camerasArray.length);
+                       alert(camerasArray[0]+"/n"+camerasArray[1]);
                        camerasCount = camerasArray.length;
-                       getStream(video, camerasArray[currentCamera]);
+                       getStream(video, camerasArray[0]);
                    },
                         function (error){
                         alert(error);
