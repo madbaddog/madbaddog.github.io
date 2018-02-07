@@ -173,9 +173,9 @@ function getStream(video, cameraId) {
              audio: false,
              video: {
                  //facingMode: 'environment'
-                 
+                 deviceId: cameraId
              },
-            deviceId: cameraId
+            
         }
 
         navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
@@ -329,6 +329,21 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
 
     function checkConstr(){
         var constr = navigator.mediaDevices.getSupportedConstraints();
+        
+        var stream;
+        if ("srcObject" in video) {
+            stream = video.srcObject;
+
+        } else {
+            stream = video.src;
+        }
+
+        var tracks = stream.getTracks();
+        tracks.forEach(function (track) {
+            var sett = track.getSettings();
+            console.log(sett);
+        });           
+        
         alert(constr.deviceId);
     }
 
