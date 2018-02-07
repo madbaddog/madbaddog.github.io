@@ -326,10 +326,13 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
                 });     
     };
 
+    function checkConst(){
+        console.log(navigator.mediaDevices.getSupportedConstraints());
+    }
 
     this.start = function () {
         return new Promise(function (resolve, reject) {
-
+            checkConst();
             getCameras()
                    .then(function (camerasArray) {
                         alert(camerasArray[currentCamera]);
