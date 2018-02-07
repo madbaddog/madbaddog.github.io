@@ -245,7 +245,7 @@ function decoderqr(Filters) {
             }
 
             var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-            imageData = Filters.filterImage(Filters.grayscale, imageData);                            
+            //imageData = Filters.filterImage(Filters.grayscale, imageData);                            
             ctx.putImageData(imageData, 0, 0);
             step1(ctx, qrctx)
                     .then(decoded, null);
@@ -318,44 +318,23 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     this.switchCamera = function () {
 
         currentCamera++;
+        this.stop();
         getCameras()
                 .then(function (camerasArray) {
-                    var stream = video.srcObject;
-                    var tracks = stream.getTracks();
-                    tracks[0].deviceId = camerasArray[currentCamera];                    
-                });          
-
-//         currentCamera++;
-//         this.stop();
-//         getCameras()
-//                 .then(function (camerasArray) {
-//                     getStream(video, camerasArray[currentCamera]);
-//                     if (currentCamera === camerasCount)
-//                         currentCamera = 0;                      
-//                 });     
+                    getStream(video, camerasArray[currentCamera]);
+                    if (currentCamera === camerasCount)
+                        currentCamera = 0;                      
+                });     
     };
 
     function checkConstr(){
         var constr = navigator.mediaDevices.getSupportedConstraints();
         
-        var stream;
-        if ("srcObject" in video) {
-            stream = video.srcObject;
-
-        } else {
-            stream = video.src;
-        }
-
-        var tracks = stream.getTracks();
-        tracks.forEach(function (track) {
-            var sett = track.getSettings();
-            console.log(sett);
-        });           
-        
-        alert(constr.deviceId);
+        if (constr.facingMode) return true;
     }
 
-    this.start = function () {        
+    this.start = function () {   
+        if (checkConstr())
         return new Promise(function (resolve, reject) {
             getCameras()
                    .then(function (camerasArray) {
