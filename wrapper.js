@@ -130,7 +130,7 @@ function getCameras() {
                 .then(function (devices) {
                     var cameras = [];
                     devices.forEach(function (device) {
-                        console.log(device);
+                        alert(device.deviceId);
                         if (device.kind === "videoinput") {                                            
                             if (device.label.indexOf("back") !== -1) {
                                 cameras.unshift(device.deviceId);
