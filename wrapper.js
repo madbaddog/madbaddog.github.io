@@ -332,6 +332,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
 
             getCameras()
                    .then(function (camerasArray) {
+                        alert(camerasArray[currentCamera]);
                        camerasCount = camerasArray.length;
                        getStream(video, camerasArray[currentCamera]);
                    },
