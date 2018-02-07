@@ -207,8 +207,7 @@ function decoderqr(Filters) {
                     resolve(r);
             }
 
-            var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-            //imageData = Filters.filterImage(Filters.grayscale, imageData);                            
+            var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);                         
             ctx.putImageData(imageData, 0, 0);
             step1(ctx, qrctx)
                     .then(decoded, null);
@@ -221,9 +220,7 @@ function decoderqr(Filters) {
     function step1(ctx, qrctx) {
         return new Promise(function (resolve, reject) {
             var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-            var data = Filters.filterImage(Filters.grayscale, imageData); 
             qrctx.putImageData(imageData, 0, 0);
-
             try {
                 var result = qrcode.decode();
                 resolve(result);
@@ -239,8 +236,8 @@ function decoderqr(Filters) {
         return new Promise(function (resolve, reject) {
             var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
             imageData = Filters.filterImage(Filters.grayscale, imageData); 
-            var data = Filters.filterImage(Filters.contrast, imageData, 110);
-            qrctx.putImageData(data, 0, 0);
+            imageData = Filters.filterImage(Filters.contrast, imageData, 110);
+            qrctx.putImageData(imageData, 0, 0);
             try {
                 var result = qrcode.decode();
                 resolve(result);
@@ -256,8 +253,8 @@ function decoderqr(Filters) {
         return new Promise(function (resolve, reject) {
             var imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
             imageData = Filters.filterImage(Filters.grayscale, imageData); 
-            var data = Filters.filterImage(Filters.threshold, imageData, 100);
-            qrctx.putImageData(data, 0, 0);
+            imageData = Filters.filterImage(Filters.threshold, imageData, 100);
+            qrctx.putImageData(imageData, 0, 0);
             try {
                 var result = qrcode.decode();
                 resolve(result);
@@ -268,16 +265,16 @@ function decoderqr(Filters) {
     }
     ;
 }
-function _qrdecoder(outcanvasid, boxsize, qrframesize) {
+function _qrdecoder(outcanvasid, videobufferid, boxsize, qrframesize) {
 
     var outcanvas = document.getElementById(outcanvasid);
     var outcontext = outcanvas.getContext('2d');
     outcontext.canvas.width = boxsize;
     outcontext.canvas.height = boxsize;
-    var video = document.createElement("video");
-    video.width = 1;
-    video.height = 1;
-    //var video = document.getElementById("video");
+    //var video = document.createElement("video");
+    //video.width = 1;
+    //video.height = 1;
+    var video = document.getElementById(videobufferid);
     var interval;
     var Filters = getFilters();
 
