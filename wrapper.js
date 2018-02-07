@@ -318,7 +318,6 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     this.switchCamera = function () {
 
         currentCamera++;
-        this.stop();
         getCameras()
                 .then(function (camerasArray) {
                     var stream = video.srcObject;
