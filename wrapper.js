@@ -166,12 +166,11 @@ function getStream(video, cameraId) {
 //                 });
         
         
-        video.style.width = document.width + 'px';
-        video.style.height = document.height + 'px';
+//         video.style.width = document.width + 'px';
+//         video.style.height = document.height + 'px';
         video.setAttribute('autoplay', false);
         video.setAttribute('muted', true);
         video.setAttribute('playsinline', true);
-        video.setAttribute("controls", true);
 
         var constraints = {
              audio: false,
