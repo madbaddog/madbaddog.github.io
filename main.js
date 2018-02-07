@@ -1,4 +1,4 @@
-window.onload(function(){
+window.onload = function(){
     alert("page loaded");
     var decoder = new _qrdecoder('outcanvas', 240, 180);
     decoder.start()
@@ -9,4 +9,4 @@ window.onload(function(){
         decoder.switch();
         alert("switch cam");
     }
-});
+};
