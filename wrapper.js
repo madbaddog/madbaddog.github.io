@@ -130,7 +130,6 @@ function getCameras() {
                 .then(function (devices) {
                     var cameras = [];
                     devices.forEach(function (device) {
-                        alert(device.deviceId +" "+ device.kind+" "+device.label);
                         if (device.kind === "videoinput") {                                            
                             if (device.label.indexOf("back") !== -1) {
                                 cameras.unshift(device.deviceId);
@@ -317,13 +316,14 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
 
     this.switchCamera = function () {
         currentCamera++;
-        if (currentCamera === camerasCount)
-            currentCamera = 0;
         this.stop();
         getCameras()
                 .then(function (camerasArray) {
+                    alert(camerasArray[currentCamera].label);
                     getStream(video, camerasArray[currentCamera]);
-                });
+                    if (currentCamera === camerasCount)
+                        currentCamera = 0;                      
+                });     
     };
 
 
