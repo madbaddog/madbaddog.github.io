@@ -123,48 +123,8 @@ function validateqr(qr) {
         return false;
 }
 
-
-function getCameras() {
-    return new Promise(function (resolve, reject) {
-        navigator.mediaDevices.enumerateDevices()
-                .then(function (devices) {
-                    var cameras = [];
-                    devices.forEach(function (device) {
-                        if (device.kind === "videoinput") {                                            
-                            if (device.label.indexOf("back") !== -1) {
-                                cameras.unshift(device.deviceId);
-                            } else cameras.push(device.deviceId);                                       
-                        }                                       
-                    });
-                    resolve(cameras);
-                });
-    });
-}
-
-function getStream(video, cameraId) {
-    return new Promise(function (resolve, reject) {
-     
-//         navigator.mediaDevices.getUserMedia({
-//             //video: {frameRate: 24, deviceId: cameraId}
-//              audio: false,
-//              video: {
-//                  facingMode: 'user'
-//              }            
-//         })
-//                 .then(function (stream) {
-//                     if ("srcObject" in video) {
-//                         video.srcObject = stream;
-//                     } else {
-//                         video.src = window.URL.createObjectURL(stream);
-//                     }
-//                     resolve();
-//                 })
-//                 .catch(function (e) {
-//                     console.log(e);
-//                 });
-        
-        
-
+function getStream(video) {
+    return new Promise(function (resolve, reject) {    
         video.setAttribute('autoplay', false);
         video.setAttribute('muted', true);
         video.setAttribute('playsinline', true);
@@ -173,13 +133,16 @@ function getStream(video, cameraId) {
              audio: false,
              video: {
                  facingMode: 'environment'
-                 //deviceId: cameraId
              },
             
         }
 
         navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
-            video.srcObject = stream;
+            if ("srcObject" in video) {
+                video.srcObject = stream;
+            } else {
+                video.src = window.URL.createObjectURL(stream);
+            }
             resolve();
         });        
     })
@@ -311,43 +274,18 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     var outcontext = outcanvas.getContext('2d');
     outcontext.canvas.width = boxsize;
     outcontext.canvas.height = boxsize;
-    //var video = document.createElement("video");
-    var video = document.getElementById("video");
+    var video = document.createElement("video");
     var interval;
     var Filters = getFilters();
-    var currentCamera = 0;
-    var camerasCount;
 
-    this.switchCamera = function () {
-
-        currentCamera++;
-        this.stop();
-        getCameras()
-                .then(function (camerasArray) {
-                    getStream(video, camerasArray[currentCamera]);
-                    if (currentCamera === camerasCount)
-                        currentCamera = 0;                      
-                });     
-    };
-
-    function checkConstr(){
-        var constr = navigator.mediaDevices.getSupportedConstraints();
-        
+    this.checkConstraints(){
+        var constr = navigator.mediaDevices.getSupportedConstraints();        
         if (constr.facingMode) return true;
     }
 
-    this.start = function () {   
-        if (checkConstr())
+    this.start = function () {
         return new Promise(function (resolve, reject) {
-//             getCameras()
-//                    .then(function (camerasArray) {
-//                        camerasCount = camerasArray.length;
-//                        getStream(video, camerasArray[currentCamera]);
-//                    },
-//                         function (error){
-//                         alert(error);
-//                    })   
-                    getStream(video,0)
+            getStream(video)
                    .then(function () {                
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
@@ -371,6 +309,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
         });
 
     };
+    
     this.stop = function () {
         var stream;
         if ("srcObject" in video) {
