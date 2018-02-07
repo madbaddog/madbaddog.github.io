@@ -6,7 +6,7 @@ window.onload = function(){
         console.log(data);
     });   
     document.getElementById("button").onclick = function(){
-        decoder.switch();
+        decoder.switchCamera();
         alert("switch cam");
     }
 };
