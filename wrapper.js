@@ -347,8 +347,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
         alert(constr.deviceId);
     }
 
-    this.start = function () {
-        checkConstr();
+    this.start = function () {        
         return new Promise(function (resolve, reject) {
             getCameras()
                    .then(function (camerasArray) {
@@ -360,6 +359,8 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
                         alert(error);
                    })            
                    .then(function () {
+                            checkConstr();
+                
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
                             var canvas = null;
