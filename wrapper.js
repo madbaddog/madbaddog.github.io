@@ -311,7 +311,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     var video = document.getElementById("video");
     var interval;
     var Filters = getFilters();
-    var currentCamera = 0;
+    var currentCamera = 1;
     var camerasCount;
 
     this.switchCamera = function () {
@@ -333,10 +333,9 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
 
     this.start = function () {
         return new Promise(function (resolve, reject) {
-            checkConstr();
             getCameras()
                    .then(function (camerasArray) {
-                        alert(camerasArray[currentCamera]);
+                       alert(camerasArray.length);
                        camerasCount = camerasArray.length;
                        getStream(video, camerasArray[currentCamera]);
                    },
