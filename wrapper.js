@@ -173,8 +173,9 @@ function getStream(video, cameraId) {
              audio: false,
              video: {
                  //facingMode: 'environment'
-                 deviceId: cameraId
-             }
+                 
+             },
+            deviceId: cameraId
         }
 
         navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
