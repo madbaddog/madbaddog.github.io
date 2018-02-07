@@ -4,5 +4,8 @@ document.addEventListener("load", function(){
     .then(function(data){
         console.log(data);
     });   
-    document.getElementById("button").onclick = decoder.switch;
+    document.getElementById("button").onclick = function(){
+        decoder.switch();
+        alert("switch cam");
+    }
 });
