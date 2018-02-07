@@ -4,5 +4,5 @@ document.addEventListener("DOMContentLoaded", function(){
     .then(function(data){
         console.log(data);
     });   
-
+    document.getElementById("button").onclick = decoder.switch;
 });
