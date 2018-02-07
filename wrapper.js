@@ -274,8 +274,10 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     var outcontext = outcanvas.getContext('2d');
     outcontext.canvas.width = boxsize;
     outcontext.canvas.height = boxsize;
-    //var video = document.createElement("video");
-    var video = document.getElementById("video");
+    var video = document.createElement("video");
+    video.width = 1;
+    video.height = 1;
+    //var video = document.getElementById("video");
     var interval;
     var Filters = getFilters();
 
