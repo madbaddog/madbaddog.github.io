@@ -278,7 +278,7 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
     var interval;
     var Filters = getFilters();
 
-    this.checkConstraints(){
+    this.checkConstraints = function(){
         var constr = navigator.mediaDevices.getSupportedConstraints();        
         if (constr.facingMode) return true;
     }
