@@ -130,6 +130,7 @@ function getCameras() {
                 .then(function (devices) {
                     var cameras = [];
                     devices.forEach(function (device) {
+                        console.log(device);
                         if (device.kind === "videoinput") {                                            
                             if (device.label.indexOf("back") !== -1) {
                                 cameras.unshift(device.deviceId);
@@ -338,7 +339,6 @@ function _qrdecoder(outcanvasid, boxsize, qrframesize) {
                         alert(error);
                    })            
                    .then(function () {
-                            alert("getting stream success");
                             var handler = new videoHandler(video);
                             var decoder = new decoderqr(Filters);
                             var canvas = null;
