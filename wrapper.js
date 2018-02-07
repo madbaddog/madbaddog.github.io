@@ -67,21 +67,6 @@ function getFilters() {
         return pixels;
     };
 
-    Filters.sobel = function(pixels){
-        var d = pixels.data;
-        var prevPixel = 0;
-        var currentPixel = 0;
-        var dx = 0;
-        for (var i = 0; i < d.length; i += 4) {
-            currentPixel = d[i];
-            dx = currentPixel - prevPixel;
-            prevPixel = d[i];
-            if (dx > 1) dx+= 20;
-            d[i] = d[i + 1] = d[i + 2] = dx;
-        }   
-        return pixels;
-    }
-
     return Filters;
 }
 
@@ -125,10 +110,6 @@ function validateqr(qr) {
 
 function getStream(video) {
     return new Promise(function (resolve, reject) {    
-        video.setAttribute('autoplay', false);
-        video.setAttribute('muted', true);
-        video.setAttribute('playsinline', true);
-
         var constraints = {
              audio: false,
              video: {
@@ -148,8 +129,6 @@ function getStream(video) {
     })
 
 }
-
-
 
 function videoHandler(video) {
     var cropedcanvas = document.createElement("canvas");
@@ -271,10 +250,10 @@ function _qrdecoder(outcanvasid, videobufferid, boxsize, qrframesize) {
     var outcontext = outcanvas.getContext('2d');
     outcontext.canvas.width = boxsize;
     outcontext.canvas.height = boxsize;
-    //var video = document.createElement("video");
-    //video.width = 1;
-    //video.height = 1;
     var video = document.getElementById(videobufferid);
+    video.setAttribute('autoplay', false);
+    video.setAttribute('muted', true);
+    video.setAttribute('playsinline', true);    
     var interval;
     var Filters = getFilters();
 
