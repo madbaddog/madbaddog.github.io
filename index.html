@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>              
+  <!--<head>              
     <title>simple decoder</title>
     <script src='qrdecoder.min.js'></script>
     <script src='wrapper.js'></script>
@@ -11,5 +11,17 @@
   <body>
     <video width="1px" height="1px" style="opacity:0"  id = "video"></video>
     <canvas id="outcanvas"></canvas>
-  </body>
+  </body>-->
+ <!-- Put this script tag to the <head> of your page -->
+<script type="text/javascript" src="https://vk.com/js/api/openapi.js?154"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: API_ID, onlyWidgets: true});
+</script>
+
+<!-- Put this div tag to the place, where the Comments block will be -->
+<div id="vk_comments"></div>
+<script type="text/javascript">
+VK.Widgets.Comments("vk_comments", {limit: 15, attach: false});
+</script>
 </html>
