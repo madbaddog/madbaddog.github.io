@@ -118,13 +118,8 @@
             scanner.interval = setInterval(
                 function () {
                     window['qrscanner'].draw();
-                }, 30);
+                }, 41);
 
-            scanner.intervalLine = setInterval(
-                function () {
-                    drawScanLine(ctx, y, side);
-                },50
-            )
 
         }).catch((e) => {
             alert(e)
@@ -170,16 +165,16 @@
     }
 
     function drawScanLine(ctx, y, side) {
-        var koef = 0.1;
-        for (var i = y; i <= y + side / 10; i += side / 100) {
-            koef += 0.1;
+        var koef = 0.4;
+        //for (var i = y; i <= y + side / 10; i += side / 100) {
+            //koef += 0.1;
             ctx.beginPath();
             ctx.strokeStyle = 'rgba(0,200,0,' + koef + ')';
-            ctx.lineWidth = "2";
-            ctx.moveTo(0, i);
-            ctx.lineTo(side, i);
+            ctx.lineWidth = "20";
+            ctx.moveTo(0, y);
+            ctx.lineTo(side, y);
             ctx.stroke();
-        }
+        //}
     }
 
     function drawrect(ctx) {
