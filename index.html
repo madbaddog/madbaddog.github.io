@@ -39,8 +39,8 @@
             text-align: center;
         }
 
-        .qr-canvas {
-            margin: 0 auto;
+        .qr-video {
+            width: 100%;
         }
 
         .qr-control{
@@ -65,6 +65,30 @@
             top: 5%;
         }
 
+        @keyframes slidein {
+            from {
+                top:0%;
+            }
+            to {
+                top: 90%;
+            }
+        }
+
+        .section{
+            height: 10%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background: rgba(0,200,0,0.3);
+            /*border: 50px rgba(0,0,0,0.3);*/
+            animation-duration: 4s;
+            animation-name: slidein;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+
     </style>
 </head>
 <body>
@@ -75,7 +99,11 @@
     <div class="qr-modal-background"></div>
     <div class='qr-modal' id='qr-modal'>
         <div class="qr-canvas-wrapper">
-            <canvas class="qr-canvas" id="canvas"></canvas>
+<!--            <canvas class="qr-canvas" id="canvas"></canvas>-->
+            <video class="qr-video" id="qr-video"></video>
+            <div class="section">
+
+            </div>
             <button id="stop" class="qr-control close">Закрыть</button>
             <button id="switch" class="qr-control switch">Сменить камеру</button>
         </div>
@@ -83,7 +111,7 @@
 </div>
 
 <script type="text/javascript">
-    var video = document.createElement("video");
+    var video = document.getElementById("qr-video");
     window['qrscanner'] = {};
     var scanner = window['qrscanner'];
     scanner.ready = false;
@@ -115,12 +143,6 @@
         document.getElementById("qrhtml").style.visibility = "visible";
         scanner.module.start(scanner.cameras[scanner.currentCamera]).then(() => {
 
-            scanner.interval = setInterval(
-                function () {
-                    window['qrscanner'].draw();
-                }, 41);
-
-
         }).catch((e) => {
             alert(e)
         })
@@ -128,7 +150,6 @@
 
     scanner.stop = function () {
         document.getElementById("qrhtml").style.visibility = "hidden";
-        clearInterval(scanner.interval);
         scanner.module.stop();
     };
 
@@ -141,49 +162,6 @@
     switchCam.addEventListener('click', function () {
         window['qrscanner'].switchCamera();
     });
-
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var y = 0;
-    var k = 3;
-    var side = 300;
-    canvas.width = side;
-    canvas.height = side;
-
-    scanner.draw = function () {
-        if ( y >= side)
-            y = -20;
-        y += k;
-
-        var dx = (scanner.module.video.videoWidth / 2) - (side / 2);
-        var dy = (scanner.module.video.videoHeight / 2) - (side / 2);
-
-
-        ctx.drawImage(scanner.module.video, dx, dy, side, side, 0, 0, side, side)
-        drawrect(ctx);
-        drawScanLine(ctx, y, side);
-    }
-
-    function drawScanLine(ctx, y, side) {
-        var koef = 0.4;
-        //for (var i = y; i <= y + side / 10; i += side / 100) {
-            //koef += 0.1;
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgba(0,200,0,' + koef + ')';
-            ctx.lineWidth = "20";
-            ctx.moveTo(0, y);
-            ctx.lineTo(side, y);
-            ctx.stroke();
-        //}
-    }
-
-    function drawrect(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "4";
-        ctx.strokeStyle = 'rgba(0,200,0,0.5)';
-        ctx.rect(0, 0, side, side);
-        ctx.stroke();
-    }
 
     var qrbutton = document.getElementById("qrbutton");
     qrbutton.addEventListener('click', function () {
