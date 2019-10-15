@@ -118,7 +118,13 @@
             scanner.interval = setInterval(
                 function () {
                     window['qrscanner'].draw();
-                }, 50);
+                }, 30);
+
+            scanner.intervalLine = setInterval(
+                function () {
+                    drawScanLine(ctx, y, side);
+                },50
+            )
 
         }).catch((e) => {
             alert(e)
@@ -144,7 +150,7 @@
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
     var y = 0;
-    var k = 10;
+    var k = 3;
     var side = 300;
     canvas.width = side;
     canvas.height = side;
@@ -159,9 +165,8 @@
 
 
         ctx.drawImage(scanner.module.video, dx, dy, side, side, 0, 0, side, side)
-
-        drawScanLine(ctx, y, side);
         drawrect(ctx);
+        drawScanLine(ctx, y, side);
     }
 
     function drawScanLine(ctx, y, side) {
