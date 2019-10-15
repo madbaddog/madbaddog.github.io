@@ -86,7 +86,7 @@
             scanner.interval = setInterval(
                 function () {
                     window['qrscanner'].draw();
-                }, 30);
+                }, 50);
 
         }).catch((e) => {
             alert(e)
@@ -124,7 +124,7 @@
 
         ctx.drawImage(scanner.module.video, 0, 0)
 
-        drawScanLine(ctx, y, side);
+        //drawScanLine(ctx, y, side);
     }
 
     function drawScanLine(ctx, y, side){
