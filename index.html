@@ -144,14 +144,14 @@
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
     var y = 0;
-    var k = 3;
+    var k = 10;
     var side = 300;
     canvas.width = side;
     canvas.height = side;
 
     scanner.draw = function () {
         if (y < 0 || y >= side)
-            y = 0;
+            y = -20;
         y += k;
 
         var dx = (scanner.module.video.videoWidth / 2) - (side / 2);
