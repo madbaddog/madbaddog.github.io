@@ -72,7 +72,7 @@
 
     scanner.switchCamera = function () {
         scanner.stop();
-        if (cameras.length - 1 === scanner.currentCamera)
+        if (scanner.cameras.length - 1 === scanner.currentCamera)
             scanner.currentCamera = 0;
         else
             scanner.currentCamera++;
@@ -91,6 +91,12 @@
         }).catch((e) => {
             alert(e)
         })
+    };
+
+    scanner.stop = function () {
+        document.getElementById("qrhtml").style.visibility="hidden";
+        clearInterval(scanner.interval);
+        scanner.module.stop();
     };
 
     var stop = document.getElementById("stop");
@@ -140,11 +146,6 @@
         ctx.stroke();
     }
 
-
-    scanner.stop = function () {
-        clearInterval(scanner.interval);
-        scanner.module.stop();
-    };
 
     var qrbutton = document.getElementById("qrbutton");
     qrbutton.addEventListener('click', function () {
