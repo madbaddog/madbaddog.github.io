@@ -150,7 +150,7 @@
     canvas.height = side;
 
     scanner.draw = function () {
-        if (y < 0 || y >= side)
+        if ( y >= side)
             y = -20;
         y += k;
 
