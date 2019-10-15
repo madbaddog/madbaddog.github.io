@@ -122,9 +122,14 @@
             y = 0;
         y+=k;
 
-        ctx.drawImage(scanner.module.video, 0, 0)
+        var dx = (scanner.module.video.videoWidth/2) - (side/2);
+        var dy = (scanner.module.video.videoHeight/2) - (side/2);
+
+
+        ctx.drawImage(scanner.module.video, dx, dy, side,side,0,0,side,side)
 
         //drawScanLine(ctx, y, side);
+        drawrect(ctx);
     }
 
     function drawScanLine(ctx, y, side){
@@ -137,15 +142,17 @@
             ctx.lineWidth = "2";
             ctx.moveTo(0,i);
             ctx.lineTo(side,i);
-            ctx.stroke()
+            ctx.stroke();
         }
+    }
+
+    function drawrect(ctx){
         ctx.beginPath();
         ctx.lineWidth = "4";
         ctx.strokeStyle = 'rgba(0,200,0,0.5)';
         ctx.rect(0,0, side, side);
         ctx.stroke();
     }
-
 
     var qrbutton = document.getElementById("qrbutton");
     qrbutton.addEventListener('click', function () {
