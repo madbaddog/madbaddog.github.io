@@ -12,6 +12,12 @@
         }
 
         .qr-modal-wrapper {
+            visibility: hidden;
+            position: absolute;
+            top:0;
+            left: 0;
+            height: 100%;
+            width: 100%;
         }
 
         .qr-modal-background {
@@ -26,11 +32,13 @@
         }
 
         .qr-modal-wrapper .qr-modal {
+
             border-radius: 10px;
             max-width: 360px;
             width: 100%;
             z-index: 1001;
-            margin: 0 auto;
+            left: 50%;
+            transform: translateY(-50%);
             height: auto;
             position: relative;
         }
@@ -130,7 +138,7 @@
 
 <button id="qrbutton">qr</button>
 
-<div id="qrhtml" style="visibility: hidden;" class="qr-modal-wrapper">
+<div id="qrhtml" class="qr-modal-wrapper">
     <div class="qr-modal-background"></div>
     <div class='qr-modal' id='qr-modal'>
         <div class="qr-canvas-wrapper">
