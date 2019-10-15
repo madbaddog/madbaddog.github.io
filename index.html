@@ -46,6 +46,7 @@
         <canvas id="canvas"></canvas>
 
         <button id="stop">close</button>
+        <button id="switch">switch</button>
     </div>
 </div>
 
@@ -95,6 +96,11 @@
     var stop = document.getElementById("stop");
     stop.addEventListener('click', function () {
         window['qrscanner'].stop();
+    });
+
+    var switchCam = document.getElementById("switch");
+    switchCam.addEventListener('click', function () {
+        window['qrscanner'].switchCamera();
     });
 
     var canvas = document.getElementById('canvas');
