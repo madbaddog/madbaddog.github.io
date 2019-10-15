@@ -145,7 +145,7 @@
     scanner.start = function () {
         document.getElementById("qrhtml").style.visibility = "visible";
         scanner.module.start(scanner.cameras[scanner.currentCamera]).then(() => {
-
+            video.style.transform ="rotateY(180deg)";
         }).catch((e) => {
             alert(e)
         })
