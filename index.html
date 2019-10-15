@@ -7,6 +7,9 @@
     <title>Title</title>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <style>
+        body {
+            margin: 0;
+        }
 
         .qr-modal-wrapper {
         }
@@ -23,15 +26,43 @@
         }
 
         .qr-modal-wrapper .qr-modal {
-            padding: 20px;
-            border-radius: 20px;
-
-            max-width: 850px;
+            border-radius: 10px;
+            max-width: 360px;
             width: 100%;
             z-index: 1001;
             margin: 0 auto;
             height: auto;
             position: relative;
+        }
+
+        .qr-canvas-wrapper {
+            text-align: center;
+        }
+
+        .qr-canvas {
+            margin: 0 auto;
+        }
+
+        .qr-control{
+            position: absolute;
+            background: transparent;
+            border: none;
+            color: #fff;
+
+        }
+
+        .qr-control :hover{
+            cursor: pointer;
+        }
+
+        .switch{
+            right: 11%;
+            bottom: 5%;
+        }
+
+        .close{
+            right: 11%;
+            top: 5%;
         }
 
     </style>
@@ -43,10 +74,11 @@
 <div id="qrhtml" style="visibility: hidden;" class="qr-modal-wrapper">
     <div class="qr-modal-background"></div>
     <div class='qr-modal' id='qr-modal'>
-        <canvas id="canvas"></canvas>
-
-        <button id="stop">close</button>
-        <button id="switch">switch</button>
+        <div class="qr-canvas-wrapper">
+            <canvas class="qr-canvas" id="canvas"></canvas>
+            <button id="stop" class="qr-control close">Закрыть</button>
+            <button id="switch" class="qr-control switch">Сменить камеру</button>
+        </div>
     </div>
 </div>
 
@@ -80,7 +112,7 @@
     };
 
     scanner.start = function () {
-        document.getElementById("qrhtml").style.visibility="visible";
+        document.getElementById("qrhtml").style.visibility = "visible";
         scanner.module.start(scanner.cameras[scanner.currentCamera]).then(() => {
 
             scanner.interval = setInterval(
@@ -94,7 +126,7 @@
     };
 
     scanner.stop = function () {
-        document.getElementById("qrhtml").style.visibility="hidden";
+        document.getElementById("qrhtml").style.visibility = "hidden";
         clearInterval(scanner.interval);
         scanner.module.stop();
     };
@@ -111,46 +143,45 @@
 
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    var y= 0;
+    var y = 0;
     var k = 3;
     var side = 300;
     canvas.width = side;
     canvas.height = side;
 
     scanner.draw = function () {
-        if(y < 0 || y>=side)
+        if (y < 0 || y >= side)
             y = 0;
-        y+=k;
+        y += k;
 
-        var dx = (scanner.module.video.videoWidth/2) - (side/2);
-        var dy = (scanner.module.video.videoHeight/2) - (side/2);
+        var dx = (scanner.module.video.videoWidth / 2) - (side / 2);
+        var dy = (scanner.module.video.videoHeight / 2) - (side / 2);
 
 
-        ctx.drawImage(scanner.module.video, dx, dy, side,side,0,0,side,side)
+        ctx.drawImage(scanner.module.video, dx, dy, side, side, 0, 0, side, side)
 
-        //drawScanLine(ctx, y, side);
+        drawScanLine(ctx, y, side);
         drawrect(ctx);
     }
 
-    function drawScanLine(ctx, y, side){
-        var koef =0.1;
-        for(var i = y; i <= y+side/20; i+=side/150)
-        {
-            koef+=0.1;
+    function drawScanLine(ctx, y, side) {
+        var koef = 0.1;
+        for (var i = y; i <= y + side / 10; i += side / 100) {
+            koef += 0.1;
             ctx.beginPath();
-            ctx.strokeStyle = 'rgba(0,200,0,'+koef+')';
+            ctx.strokeStyle = 'rgba(0,200,0,' + koef + ')';
             ctx.lineWidth = "2";
-            ctx.moveTo(0,i);
-            ctx.lineTo(side,i);
+            ctx.moveTo(0, i);
+            ctx.lineTo(side, i);
             ctx.stroke();
         }
     }
 
-    function drawrect(ctx){
+    function drawrect(ctx) {
         ctx.beginPath();
         ctx.lineWidth = "4";
         ctx.strokeStyle = 'rgba(0,200,0,0.5)';
-        ctx.rect(0,0, side, side);
+        ctx.rect(0, 0, side, side);
         ctx.stroke();
     }
 
